@@ -15,10 +15,11 @@ const routes = [
     path: '/',
     name: 'home',
     meta: {
-      layout: AppLayout
-      // middleware: [guest],
+      layout: AppLayout,
+      middleware: [auth]
     },
-    component: Home
+    component: () => import('@/views/Home.vue')
+    // component: Home
   },
   {
     path: '/category',

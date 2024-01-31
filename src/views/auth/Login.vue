@@ -31,10 +31,10 @@
               />
             </div>
             <div class="mb-3">
-              <a href="">Daftar di sini</a>
+              <router-link :to="{ name: 'register' }">Daftar di sini</router-link>
             </div>
             <div class="d-grid gap-2 mb-3">
-              <button type="submit" class="btn btn-primary">Masuk</button>
+              <button type="submit" id="btn-submit" class="btn btn-primary">Masuk</button>
             </div>
           </form>
         </div>
@@ -58,36 +58,10 @@ export default {
       password: ''
     })
 
-    const router = useRouter()
     const userStore = useUserStore()
     const validation = ref([])
 
     const toast = useToast()
-    // const onSubmit = () => {
-    //   axiosClient
-    //     .post("login", {
-    //       email: form.email,
-    //       password: form.password,
-    //     })
-    //     .then((response) => {
-    //       const user = response.data.data.user;
-    //       const token = response.data.data.token;
-    //       userStore.login({ user, token });
-
-    //       router.push("/");
-    //       toast.success(response.data.message, {
-    //         position: "top-right",
-    //         timeout: 2000,
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       toast.error(error.response.data.message[0], {
-    //         timeout: 2000,
-    //         position: "top-right",
-    //       });
-    //     })
-    //     .finally(() => {});
-    // };
     const onSubmit = async () => {
       try {
         await axiosClient
@@ -100,7 +74,6 @@ export default {
             const token = response.data.data.token
             userStore.login({ user, token })
 
-            router.push('/')
             toast.success(response.data.message, {
               position: 'top-right',
               timeout: 2000
@@ -115,7 +88,6 @@ export default {
     }
 
     return {
-      router,
       form,
       validation,
       toast,

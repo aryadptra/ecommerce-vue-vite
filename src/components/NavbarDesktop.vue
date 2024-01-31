@@ -37,7 +37,7 @@
             </svg>
           </button>
         </form>
-        <a v-if="loggedIn" href="#" class="btn">
+        <a v-if="user.isLoggedIn" href="#" class="btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -51,7 +51,7 @@
             />
           </svg>
         </a>
-        <a v-if="loggedIn" href="#" class="btn btn-cart">
+        <a v-if="user.isLoggedIn" href="#" class="btn btn-cart">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -94,9 +94,13 @@
             {{ user.userName }}
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Login</a></li>
-            <li><a class="dropdown-item" href="#">Register</a></li>
-            <li v-if="loggedIn">
+            <li v-if="!user.isLoggedIn">
+              <router-link class="dropdown-item" :to="{ name: 'login' }">Login</router-link>
+            </li>
+            <li v-if="!user.isLoggedIn">
+              <router-link class="dropdown-item" :to="{ name: 'register' }">Register</router-link>
+            </li>
+            <li v-if="user.isLoggedIn">
               <a class="dropdown-item" :onclick="logout" href="#">Logout</a>
             </li>
           </ul>
@@ -107,15 +111,11 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+
 import { useUserStore } from '@/stores/user'
 
 export default {
-  props: {
-    loggedIn: {
-      required: true
-    }
-  },
   setup() {
     const userStore = useUserStore()
 

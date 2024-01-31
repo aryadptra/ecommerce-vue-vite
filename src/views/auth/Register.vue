@@ -6,8 +6,19 @@
           <img src="../../assets/images/login-img.png" class="login-image" alt="" srcset="" />
         </div>
         <div class="col-12 col-md-6 my-auto">
-          <h2>Belanja kebutuhan komputer Anda menjadi lebih mudah</h2>
+          <h2>Daftar sekarang untuk nikmati kemudahan dalam berbelanja</h2>
           <form @submit.prevent="onSubmit">
+            <div class="mb-3">
+              <label>Nama</label>
+              <input
+                name="name"
+                type="name"
+                v-model="form.name"
+                class="form-control"
+                placeholder="Nama Lengkap"
+                required
+              />
+            </div>
             <div class="mb-3">
               <label>Email address</label>
               <input
@@ -30,8 +41,20 @@
                 required
               />
             </div>
+
             <div class="mb-3">
-              <a href="">Daftar di sini</a>
+              <label>Ulangi Password</label>
+              <input
+                name="re-password"
+                type="password"
+                v-model="form.repassword"
+                class="form-control"
+                placeholder="Ulangi Password"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <router-link :to="{ name: 'login' }">Sudah daftar? Masuk di sini</router-link>
             </div>
             <div class="d-grid gap-2 mb-3">
               <button type="submit" class="btn btn-primary">Masuk</button>
@@ -54,8 +77,10 @@ import { reactive, ref } from 'vue'
 export default {
   setup() {
     const form = reactive({
+      name: '',
       email: '',
-      password: ''
+      password: '',
+      repassword: ''
     })
 
     const router = useRouter()
@@ -64,25 +89,36 @@ export default {
 
     const toast = useToast()
     const onSubmit = async () => {
-      try {
-        await axiosClient
-          .post('login', {
-            email: form.email,
-            password: form.password
-          })
-          .then((response) => {
-            const user = response.data.data.user
-            const token = response.data.data.token
-            userStore.login({ user, token })
-
-            router.push('/')
-            toast.success(response.data.message, {
-              position: 'top-right',
-              timeout: 2000
+      // Memeriksa apakah repassword sama dengan password
+      if (form.password !== form.repassword) {
+        // Jika tidak sama, tambahkan pesan kesalahan
+        toast.error('Password tidak sama.', {
+          position: 'top-right',
+          timeout: 3000
+        })
+      } else if (form.password.length >= 8) {
+        try {
+          await axiosClient
+            .post('register', {
+              name: form.name,
+              email: form.email,
+              password: form.password
             })
+            .then((response) => {
+              router.push('/login')
+              toast.success(response.data.message, {
+                position: 'top-right',
+                timeout: 2000
+              })
+            })
+        } catch (error) {
+          toast.error(error.response.data.message[0], {
+            timeout: 2000,
+            position: 'top-right'
           })
-      } catch (error) {
-        toast.error(error.response.data.message[0], {
+        }
+      } else {
+        toast.error('Password minimal 8 huruf', {
           timeout: 2000,
           position: 'top-right'
         })

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import router from '@/router'
+import { useRouter } from 'vue-router'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -9,12 +10,12 @@ export const useUserStore = defineStore('user', {
   }),
   getters: {
     isLoggedIn: (state) => {
-      return !!state.activeUser
       // Mengembalikan true jika ada pengguna yang aktif, sebaliknya false.
+      return !!state.activeUser
     },
     userDisplayName: (state) => {
-      return state.userName
       // Mengembalikan nama pengguna atau "Guest" jika tidak ada.
+      return state.userName
     }
   },
   actions: {
@@ -28,7 +29,7 @@ export const useUserStore = defineStore('user', {
       localStorage.setItem('userName', this.userName)
       localStorage.setItem('userToken', 'Bearer ' + token)
 
-      router.push(this.returnUrl || '/')
+      router.push('/')
     },
     logout() {
       this.activeUser = null

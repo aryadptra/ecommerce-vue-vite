@@ -1,6 +1,10 @@
+import { useUserStore } from '@/stores/user'
+
 export default function auth({ next, store }) {
-  if (localStorage.activeUser) {
-    return next();
+  const userStore = useUserStore()
+
+  if (userStore.isLoggedIn) {
+    return next()
   }
-  return next({ name: "login" });
+  return next({ name: 'login' })
 }

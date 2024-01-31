@@ -1,6 +1,6 @@
 <template>
   <NavbarMobile />
-  <NavbarDesktop :loggedIn="loggedIn" />
+  <NavbarDesktop />
   <div class="content">
     <!-- render vue router -->
     <router-view></router-view>
@@ -18,6 +18,10 @@ import NavbarMobile from '@/components/NavbarMobile.vue'
 import axiosClient from '@/plugins/axios'
 import router from '@/router'
 
+import { ref } from 'vue'
+
+import { useUserStore } from '@/stores/user'
+
 export default {
   components: {
     NavbarDesktop,
@@ -27,9 +31,10 @@ export default {
     NavbarMobile
   },
   data() {
+    const userStore = useUserStore()
     return {
       //state loggedIn with localStorage
-      loggedIn: localStorage.getItem('activeUser'),
+      loggedIn: ref(userStore.isLoggedIn),
       //state token
       token: localStorage.getItem('userToken'),
       //state user logged In
