@@ -2,7 +2,6 @@
   <nav class="navbar-primary navbar navbar-expand-lg border-bottom d-none d-md-block d-lg-block">
     <div class="container">
       <!-- <a class="navbar-brand" href="#">Walmart</a> -->
-
       <router-link class="navbar-brand" :to="{ name: 'home' }">Walmart</router-link>
       <button
         class="navbar-toggler"
@@ -67,7 +66,7 @@
           </svg>
           <div class="cart-badge">1</div>
         </a>
-        <div v-if="loggedIn" class="btn dropdown nav-dropdown-user">
+        <div class="btn dropdown nav-dropdown-user">
           <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +96,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Login</a></li>
             <li><a class="dropdown-item" href="#">Register</a></li>
-            <li>
+            <li v-if="loggedIn">
               <a class="dropdown-item" :onclick="logout" href="#">Logout</a>
             </li>
           </ul>
@@ -114,7 +113,6 @@ import { useUserStore } from '@/stores/user'
 export default {
   props: {
     loggedIn: {
-      type: Boolean,
       required: true
     }
   },

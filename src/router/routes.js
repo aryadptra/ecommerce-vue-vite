@@ -5,6 +5,7 @@ import Category from '@/views/Category.vue'
 import Detail from '@/views/Detail.vue'
 import Cart from '@/views/Cart.vue'
 import Login from '@/views/auth/Login.vue'
+import Register from '@/views/auth/Register.vue'
 
 import auth from '@/middleware/auth'
 import guest from '@/middleware/guest'
@@ -50,6 +51,14 @@ const routes = [
       layout: AppLayout
     },
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    meta: {
+      layout: AppLayout
+    },
+    component: Register
   }
 ]
 
