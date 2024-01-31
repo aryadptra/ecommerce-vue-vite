@@ -1,0 +1,47 @@
+.navbar-primary {
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  @include media-breakpoint-down(md) {
+    background-color: #fff !important;
+  }
+
+  .navbar-brand {
+    font-size: 26px;
+  }
+
+  .navbar-nav {
+    .nav-item {
+      .nav-link {
+        font-size: 18px;
+        margin: 0 10px;
+        font-weight: 300;
+      }
+      .nav-link.active {
+        font-weight: 400;
+      }
+    }
+  }
+
+  .btn-cart {
+    position: relative;
+    display: inline-block;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -8px; /* Sesuaikan posisi vertikal sesuai kebutuhan Anda */
+    right: -8px; /* Sesuaikan posisi horizontal sesuai kebutuhan Anda */
+    background-color: $primary; /* Warna latar belakang badge */
+    color: white; /* Warna teks badge */
+    border-radius: 100%; /* Membuat badge berbentuk lingkaran */
+    padding: 4px 10px; /* Sesuaikan ukuran padding sesuai kebutuhan Anda */
+    font-size: 12px; /* Sesuaikan ukuran font sesuai kebutuhan Anda */
+  }
+
+  .btn.dropdown.nav-dropdown-user:active,
+  .btn.dropdown.nav-dropdown-user:focus {
+    box-shadow: none;
+    border-color: #fff; /* Atau ganti dengan warna yang sesuai */
+  }
+}

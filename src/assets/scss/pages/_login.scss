@@ -1,0 +1,8 @@
+.login-image {
+  width: 450px;
+  margin: 50px 0;
+
+  @media (max-width: 767px) {
+    width: 180px;
+  }
+}
